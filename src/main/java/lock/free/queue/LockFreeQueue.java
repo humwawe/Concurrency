@@ -1,4 +1,4 @@
-package lock.lock;
+package lock.free.queue;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;

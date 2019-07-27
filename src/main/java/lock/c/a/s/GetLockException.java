@@ -1,4 +1,4 @@
-package lock.compare.and.set;
+package lock.c.a.s;
 
 /**
  * @author hum

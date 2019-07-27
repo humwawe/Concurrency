@@ -3,6 +3,8 @@ package lock.bool;
 import java.util.*;
 
 /**
+ * 不可重入
+ *
  * @author hum
  */
 public class BooleanLock implements Lock {
