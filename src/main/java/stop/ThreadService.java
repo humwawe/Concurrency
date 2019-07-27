@@ -10,21 +10,18 @@ public class ThreadService {
     private volatile boolean finished = false;
 
     public void execute(final Runnable task) {
-        executeThread = new Thread() {
-            @Override
-            public void run() {
-                Thread runner = new Thread(task);
-                // 守护线程去执行任务，setDaemon：当执行线程结束，守护线程也结束
-                runner.setDaemon(true);
-                runner.start();
-                try {
-                    runner.join();
-                    finished = true;
-                } catch (InterruptedException e) {
-                    //e.printStackTrace();
-                }
+        executeThread = new Thread(() -> {
+            Thread runner = new Thread(task);
+            // 守护线程去执行任务，setDaemon：当执行线程结束，守护线程也结束
+            runner.setDaemon(true);
+            runner.start();
+            try {
+                runner.join();
+                finished = true;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        };
+        });
         executeThread.start();
     }
 

@@ -1,4 +1,4 @@
-package lock.free.queue;
+package queue.lock.free;
 
 
 /**
