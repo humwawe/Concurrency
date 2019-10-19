@@ -1,4 +1,4 @@
-package socket.tcp.demo;
+package socket.tcp.echo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class Client {
         socket.setSoTimeout(3000);
         socket.connect(new InetSocketAddress(Inet4Address.getLocalHost(), 2000), 3000);
 
-        System.out.println("start client");
+        System.out.println("client start");
         System.out.println("client info: address: " + socket.getLocalAddress() + " port: " + socket.getLocalPort());
         System.out.println("server info: address: " + socket.getInetAddress() + " port: " + socket.getPort());
 
@@ -25,7 +25,7 @@ public class Client {
             System.out.println("exception close!");
         }
         socket.close();
-        System.out.println("end client");
+        System.out.println("client end");
     }
 
     private static void doSomething(Socket client) throws IOException {

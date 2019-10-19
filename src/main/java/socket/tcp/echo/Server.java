@@ -1,4 +1,4 @@
-package socket.tcp.demo;
+package socket.tcp.echo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.net.Socket;
 public class Server {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(2000);
-        System.out.println("start server");
+        System.out.println("server start");
         System.out.println("server info: address: " + serverSocket.getInetAddress() + " port: " + serverSocket.getLocalPort());
 
         while (true) {
