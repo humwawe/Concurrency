@@ -1,11 +1,13 @@
 package socket.p2p.client;
 
 import socket.p2p.bean.ServerInfo;
+import socket.util.CloseUtils;
 
 import java.io.*;
 import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 /**
  * @author hum
@@ -22,7 +24,12 @@ public class TcpClient {
         System.out.println("server info：" + socket.getInetAddress() + " port:" + socket.getPort());
 
         try {
-            doSomething(socket);
+            ReadHandler readHandler = new ReadHandler(socket.getInputStream());
+            readHandler.start();
+
+            write(socket);
+
+            readHandler.exit();
         } catch (Exception e) {
             System.out.println("exception close!");
         }
@@ -32,24 +39,59 @@ public class TcpClient {
 
     }
 
-    private static void doSomething(Socket client) throws IOException {
+    private static void write(Socket client) throws IOException {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         PrintStream socketPrintStream = new PrintStream(client.getOutputStream());
-        BufferedReader socketBufferedReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
-        boolean flag = true;
         do {
             String str = input.readLine();
             socketPrintStream.println(str);
-            String echo = socketBufferedReader.readLine();
-            if ("Bye".equalsIgnoreCase(echo)) {
-                flag = false;
-            } else {
-                System.out.println(echo);
+            if ("00bye00".equalsIgnoreCase(str)) {
+                break;
             }
-        } while (flag);
+        } while (true);
 
         socketPrintStream.close();
-        socketBufferedReader.close();
+    }
+
+    static class ReadHandler extends Thread {
+        private boolean done = false;
+        private final InputStream inputStream;
+
+        ReadHandler(InputStream inputStream) {
+            this.inputStream = inputStream;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            try {
+                BufferedReader socketInput = new BufferedReader(new InputStreamReader(inputStream));
+                do {
+                    String str;
+                    try {
+                        str = socketInput.readLine();
+                    } catch (SocketTimeoutException e) {
+                        continue;
+                    }
+                    if (str == null) {
+                        System.out.println("can't read message!");
+                        break;
+                    }
+                    System.out.println(str);
+                } while (!done);
+            } catch (Exception e) {
+                if (!done) {
+                    System.out.println("exception close!" + e.getMessage());
+                }
+            } finally {
+                CloseUtils.close(inputStream);
+            }
+        }
+
+        void exit() {
+            done = true;
+            CloseUtils.close(inputStream);
+        }
     }
 }
