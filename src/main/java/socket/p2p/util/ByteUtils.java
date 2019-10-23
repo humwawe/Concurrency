@@ -1,4 +1,4 @@
-package socket.util;
+package socket.p2p.util;
 
 /**
  * @author hum

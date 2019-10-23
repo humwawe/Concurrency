@@ -1,6 +1,6 @@
 package socket.p2p.server.handler;
 
-import socket.util.CloseUtils;
+import socket.p2p.util.CloseUtils;
 
 import java.io.*;
 import java.net.Socket;

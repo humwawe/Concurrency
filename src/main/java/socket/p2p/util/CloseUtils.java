@@ -1,4 +1,4 @@
-package socket.util;
+package socket.p2p.util;
 
 import java.io.Closeable;
 import java.io.IOException;

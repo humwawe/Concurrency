@@ -1,7 +1,7 @@
 package socket.p2p.client;
 
 import socket.p2p.bean.ServerInfo;
-import socket.util.CloseUtils;
+import socket.p2p.util.CloseUtils;
 
 import java.io.*;
 import java.net.Inet4Address;

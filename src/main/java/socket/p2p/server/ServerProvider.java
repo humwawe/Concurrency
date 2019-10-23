@@ -1,7 +1,7 @@
 package socket.p2p.server;
 
 import socket.p2p.constants.Constants;
-import socket.util.ByteUtils;
+import socket.p2p.util.ByteUtils;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

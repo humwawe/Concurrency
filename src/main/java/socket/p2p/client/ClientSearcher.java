@@ -2,7 +2,7 @@ package socket.p2p.client;
 
 import socket.p2p.bean.ServerInfo;
 import socket.p2p.constants.Constants;
-import socket.util.ByteUtils;
+import socket.p2p.util.ByteUtils;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
